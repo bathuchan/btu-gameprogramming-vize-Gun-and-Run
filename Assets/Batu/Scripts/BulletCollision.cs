@@ -11,7 +11,8 @@ public class BulletCollision : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        //Player hit logic
+        this.gameObject.SetActive(false);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,9 +22,9 @@ public class BulletCollision : MonoBehaviour
         createdBulletHole.transform.parent=holeContainer;
 
         Destroy(createdBulletHole,8f);
-       
 
-        Destroy(gameObject);
+
+        this.gameObject.SetActive(false);
     }
     
     
