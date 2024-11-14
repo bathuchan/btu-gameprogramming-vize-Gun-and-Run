@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 74130176}
   - component: {fileID: 74130175}
   m_Layer: 6
-  m_Name: Enemy_pistol
+  m_Name: Enemy_shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,17 +244,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db5335935c41094f9e114bb0f8b0125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 0
+  fireMode: 2
   bulletSpawnPoint: {fileID: 74130174}
   bulletPrefab: {fileID: 5746468219898679958, guid: 29aa3c859e71dd34fa5142a49549de8e,
     type: 3}
   bulletContainer: {fileID: 0}
-  fireRate: 3
+  fireRate: 5
   bulletSpeed: 10
-  burstCount: 3
   bulletLifespan: 8
   recoilAmount: 3
   poolSize: 50
+  burstCount: 4
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &74130176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &169079663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,10 +366,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 3
   bulletSpeed: 10
-  burstCount: 3
   bulletLifespan: 8
   recoilAmount: 3
   poolSize: 50
+  burstCount: 3
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &169079664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &205677347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,10 +568,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 2
   bulletSpeed: 10
-  burstCount: 6
   bulletLifespan: 8
   recoilAmount: 5
   poolSize: 50
+  burstCount: 6
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &205677348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &478511432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,10 +1118,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 3
   bulletSpeed: 10
-  burstCount: 3
   bulletLifespan: 8
   recoilAmount: 3
   poolSize: 50
+  burstCount: 3
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &478511433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1407,7 @@ Transform:
   m_GameObject: {fileID: 534117055}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.51, y: 1, z: 8.62}
+  m_LocalPosition: {x: -6.06, y: 1, z: 10.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1428,7 +1436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &580413168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,10 +1456,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 3
   bulletSpeed: 10
-  burstCount: 3
   bulletLifespan: 8
   recoilAmount: 3
   poolSize: 50
+  burstCount: 3
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &580413169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1681,7 +1691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &657850561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,10 +1711,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 3
   bulletSpeed: 10
-  burstCount: 3
   bulletLifespan: 8
   recoilAmount: 3
   poolSize: 50
+  burstCount: 3
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &657850562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1934,7 +1946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &975704329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1954,10 +1966,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 2
   bulletSpeed: 10
-  burstCount: 6
   bulletLifespan: 8
   recoilAmount: 5
   poolSize: 50
+  burstCount: 6
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &975704330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,74 +2232,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &1070011448
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4107920594925676697, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_Name
-      value: bullethole
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6532769251008464974, guid: 4d23a8ac5a117b94d9bbc9a189004636,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4d23a8ac5a117b94d9bbc9a189004636, type: 3}
 --- !u!1 &1159256184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,7 +2254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1159256185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2328,10 +2274,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 2
   bulletSpeed: 10
-  burstCount: 6
   bulletLifespan: 8
   recoilAmount: 5
   poolSize: 50
+  burstCount: 6
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!65 &1159256186
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2539,7 +2487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1349206555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,10 +2507,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 2
   bulletSpeed: 10
-  burstCount: 6
   bulletLifespan: 8
   recoilAmount: 5
   poolSize: 50
+  burstCount: 6
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &1349206556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,7 +2795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1668410517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2865,10 +2815,12 @@ MonoBehaviour:
   bulletContainer: {fileID: 0}
   fireRate: 2
   bulletSpeed: 10
-  burstCount: 6
   bulletLifespan: 8
   recoilAmount: 5
   poolSize: 50
+  burstCount: 6
+  shotgunPellets: 5
+  shotgunSpreadAngle: 30
 --- !u!114 &1668410518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3101,7 +3053,7 @@ Transform:
   m_GameObject: {fileID: 1829635738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3436,4 +3388,3 @@ SceneRoots:
   - {fileID: 205677354}
   - {fileID: 1668410524}
   - {fileID: 419866925}
-  - {fileID: 1070011448}
