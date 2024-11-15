@@ -17,6 +17,7 @@ public class EnemyGun : MonoBehaviour
     public float bulletLifespan = 2f;
     public float recoilAmount = 2f;
     public int poolSize = 20;
+    [HideInInspector]public bool isShooting=false;
 
     [HideInInspector] public int burstCount = 3;
     [HideInInspector] public int shotgunPellets = 5;
@@ -26,6 +27,7 @@ public class EnemyGun : MonoBehaviour
     private Transform player;
     private float nextFireTime;
     private Coroutine fireCoroutine;
+    private bool isEnemy;
 
     private void Start()
     {
@@ -41,51 +43,60 @@ public class EnemyGun : MonoBehaviour
             bullet.SetActive(false);
             bulletPool.Add(bullet);
         }
+        isEnemy = gameObject.CompareTag("Enemy");
     }
 
     private void Update()
     {
-        if (Time.time >= nextFireTime)
+        if (isEnemy)
+        {
+            HandleShooting(isShooting, bulletSpawnPoint.position, player.position);
+        }
+
+    }
+    public void HandleShooting(bool isShooting, Vector3 origin, Vector3 towards)
+    {
+        if (isShooting && Time.time >= nextFireTime)
         {
             switch (fireMode)
             {
                 case FireMode.Single:
-                    FireSingleShot();
+                    FireSingleShot(origin,towards);
                     break;
                 case FireMode.Burst:
                     if (fireCoroutine == null)
-                        fireCoroutine = StartCoroutine(FireBurst());
+                        fireCoroutine = StartCoroutine(FireBurst(origin, towards));
                     break;
                 case FireMode.Shotgun:
-                    FireShotgun();
+                    FireShotgun(origin, towards);
                     break;
             }
             nextFireTime = Time.time + fireRate;
         }
     }
 
-    private void FireSingleShot()
+    private void FireSingleShot(Vector3 origin,Vector3 towards)
     {
-        Vector3 direction = (player.position - bulletSpawnPoint.position).normalized;
+        Vector3 direction = (towards - origin).normalized;
         FireBullet(direction);
     }
 
-    private IEnumerator FireBurst()
+    private IEnumerator FireBurst(Vector3 origin, Vector3 towards)
     {
-        Vector3 direction = (player.position - bulletSpawnPoint.position).normalized;
+        Vector3 direction = (towards - origin).normalized;
         for (int i = 0; i < burstCount; i++)
         {
             FireBullet(direction);
             yield return new WaitForSeconds(fireRate / burstCount);
-            direction = (player.position - bulletSpawnPoint.position).normalized;
+            direction = (towards - origin).normalized;
         }
         yield return new WaitForSeconds(fireRate);
         fireCoroutine = null;
     }
 
-    private void FireShotgun()
+    private void FireShotgun(Vector3 origin, Vector3 towards)
     {
-        Vector3 baseDirection = (player.position - bulletSpawnPoint.position).normalized;
+        Vector3 baseDirection = (towards - origin).normalized;
 
         float angleStep = shotgunSpreadAngle / (shotgunPellets - 1);
         float startAngle = -shotgunSpreadAngle / 2f;
@@ -106,13 +117,12 @@ public class EnemyGun : MonoBehaviour
     {
         GameObject bullet = GetBulletFromPool();
 
-        if (bullet != null && player != null)
+        if (bullet != null)
         {
-            // Adding recoil here
+            // Adding recoil
             float randomAngleX = Random.Range(-recoilAmount, recoilAmount);
             float randomAngleY = Random.Range(-recoilAmount, recoilAmount);
-            float randomAngleZ = Random.Range(-recoilAmount, recoilAmount);
-            Quaternion recoilRotation = Quaternion.Euler(randomAngleX, randomAngleY, randomAngleZ);
+            Quaternion recoilRotation = Quaternion.Euler(randomAngleX, randomAngleY, 0);
             direction = recoilRotation * direction;
 
             // Pool settings
@@ -129,6 +139,7 @@ public class EnemyGun : MonoBehaviour
             StartCoroutine(ReturnBulletToPoolAfterLifespan(bullet));
         }
     }
+
 
     private GameObject GetBulletFromPool()
     {
