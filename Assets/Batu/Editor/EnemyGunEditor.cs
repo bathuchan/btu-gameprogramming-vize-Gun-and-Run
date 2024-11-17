@@ -1,12 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(EnemyGun))]
+[CustomEditor(typeof(Gun))]
 public class EnemyGunEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        EnemyGun enemyGun = (EnemyGun)target;
+        Gun enemyGun = (Gun)target;
 
         serializedObject.Update();
 
@@ -14,14 +14,14 @@ public class EnemyGunEditor : Editor
 
         switch (enemyGun.fireMode)
         {
-            case EnemyGun.FireMode.Burst:
+            case Gun.FireMode.Burst:
                 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Burst Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("burstCount"));
                 break;
 
-            case EnemyGun.FireMode.Shotgun:
+            case Gun.FireMode.Shotgun:
                 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Shotgun Settings", EditorStyles.boldLabel);
