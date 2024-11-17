@@ -2,30 +2,22 @@ using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
 {
-    public GameObject bulletHolePrefab;
-    private GameObject createdBulletHole;
-    private Transform holeContainer;
+    private BulletHoleManager bulletHoleManager;
+
     private void Start()
     {
-        holeContainer = GameObject.FindGameObjectWithTag("HoleContainer").transform;
+        bulletHoleManager = FindObjectOfType<BulletHoleManager>();
     }
-    
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Player")) 
+        if (!collision.gameObject.CompareTag("Player"))
         {
             ContactPoint contact = collision.GetContact(0);
-
-            createdBulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
-            createdBulletHole.transform.parent = holeContainer;
-
-            Destroy(createdBulletHole, 8f);
+            bulletHoleManager.PlaceBulletHole(contact.point, Quaternion.LookRotation(contact.normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+            this.gameObject.SetActive(false);
         }
-        
-
-
         this.gameObject.SetActive(false);
     }
-    
-    
+   
 }

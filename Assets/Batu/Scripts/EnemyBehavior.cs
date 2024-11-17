@@ -1,4 +1,5 @@
-using System.Collections;
+﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -25,10 +26,29 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Update()
     {
+        ////BUNLARI IF İÇİNDE KULLANACAKSIN
+
+        //Input.GetAxis("Vertical");
+        ////yatad ve dikey harekette transform.forward ve transform.right kullanacaksın
+        ////rigidbodye erişip oraya kuvvet ekleyeceksin input yokken rgidbody.velocity=0 olacak
+        //Input.GetKey(KeyCode.Space);
+        ////gameobject.transform.position dan -transform.up doğrultusunda raycast atacaksın belirli bir uzunlukta
+        ////bu raycast sadece belirli layerlara çarpacak bunu araştırabilirsin
+        ////zamanlayıcı koy zıplamalar arasına ki abam sürekli zıplayamasın ya da ardarda oluşan 2 framede zıplamasına izin verme araştır
+        ////uzay oyunundaki corotine sıfırlama mantığına benziyor
+        //Input.GetKey(KeyCode.Mouse0);
+        ////bunu boş bırak ben ateş etmeyle dolduracağım başka scriptten
+        //Input.GetKeyDown(KeyCode.RightShift);
+        ////runnig=true
+        ////ayrı bir koşma çarpanı ve yürüme hızı olsun koşuyorsa koşma hızı ile çarpsın
+        //Input.GetKeyUp(KeyCode.RightShift);
+        ////runnig=false
+        ////ayrı bir koşma çarpanı ve yürüme hızı olsun koşmayı bıraktığında koşma hızı ile bölsün
+
         if (isPlayerInRange && !avoidingObstacle)
         {
             enemyGun.enabled = true;  // Enable shooting when the player is in range
-
+            enemyGun.isShooting = true;
             if (moveTowardsPlayerCoroutine == null)
             {
                 // Start the coroutine to move towards the player
@@ -37,11 +57,12 @@ public class EnemyBehavior : MonoBehaviour
         }
         else
         {
+            enemyGun.isShooting = false;
             enemyGun.enabled = false; // Disable shooting when the player is out of range
 
             if (moveTowardsPlayerCoroutine != null)
             {
-                // Stop the coroutine if it�s running
+                // Stop the coroutine if it’s running
                 StopCoroutine(moveTowardsPlayerCoroutine);
                 moveTowardsPlayerCoroutine = null;
             }
@@ -85,7 +106,7 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 leftDirection = Vector3.Cross(directionToPlayer, Vector3.up);
         Vector3 rightDirection = -leftDirection;
 
-        bool goLeft = !Physics.Raycast(transform.position, leftDirection, obstacleDetectionRange, ~dontCheck);
+        bool goLeft = !Physics.Raycast(transform.position, transform.up, obstacleDetectionRange, ~dontCheck);
         bool goRight = !Physics.Raycast(transform.position, rightDirection, obstacleDetectionRange, ~dontCheck);
 
         // Decide avoidance direction based on which side is clear
