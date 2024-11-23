@@ -5,7 +5,7 @@
 
 ---
 
-> ## [Play The Game](https://bathuchan.itch.io/gun-run)
+> **[Play The Game](https://bathuchan.itch.io/gun-run)**
 
 ## Current Features
 - **Dynamic Movement**: 
