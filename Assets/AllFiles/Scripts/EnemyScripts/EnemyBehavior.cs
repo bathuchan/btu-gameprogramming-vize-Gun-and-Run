@@ -55,25 +55,26 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (player == null) yield break;
 
-            // Raycast forward to check for obstacles
+            
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             RaycastHit hit;
+            //Engel kontrolü
             if (Physics.Raycast(transform.position, directionToPlayer, out hit, obstacleDetectionRange, ~dontCheck))
             {
-                // Obstacle detected, start avoiding and exit movement coroutine
+                
                 StartCoroutine(AvoidObstacle(directionToPlayer));
                 yield break;
             }
 
-            // Move towards the player if no obstacle detected
+            //Hareket yön doğrultusunda ekleniyor
             Vector3 moveDirection = directionToPlayer * moveSpeed * Time.deltaTime;
             rb.MovePosition(rb.position + moveDirection);
 
-            // Rotate to face the player
+            
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed);
 
-            // Yield until the next frame
+            
             yield return null;
         }
     }
@@ -82,17 +83,17 @@ public class EnemyBehavior : MonoBehaviour
     {
         avoidingObstacle = true;
 
-        // Determine direction to avoid (left or right)
+        // sol ya da sağ boş mu
         Vector3 leftDirection = Vector3.Cross(directionToPlayer, Vector3.up);
         Vector3 rightDirection = -leftDirection;
 
         bool goLeft = !Physics.Raycast(transform.position, transform.up, obstacleDetectionRange, ~dontCheck);
         bool goRight = !Physics.Raycast(transform.position, rightDirection, obstacleDetectionRange, ~dontCheck);
 
-        // Decide avoidance direction based on which side is clear
+        // hareket doğrultusu düzenleme
         Vector3 avoidanceDirection = goLeft ? leftDirection : (goRight ? rightDirection : -directionToPlayer);
 
-        // Move in the chosen direction for a set duration to avoid the obstacle
+        // belirlenen süre kadar engeli aşmak için yapılan hareket
         float timer = 0f;
         while (timer < avoidanceDuration)
         {
@@ -114,7 +115,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Only start the movement and shooting when the player enters range
+            // oyuncu algılama mesafesinin(detection range) içerisindeyse düşman ateş etmeye ve hareket etmeye başlar
             SetEnableState(true);
         }
     }
@@ -123,7 +124,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Stop movement and shooting when the player exits range
+            // oyuncu algılama mesafesinin(detection range) dışına çıkarsa düşman ateş etmeye ve hareket etmeyi keser
             SetEnableState(false);
         }
     }

@@ -6,12 +6,12 @@ public class WeaponSway : MonoBehaviour
     public float maxSwayAmount = 0.06f;
     public float swaySmoothValue = 4.0f;
 
-    public float firingSwayAmount = 0.03f; // Amount of sway added when firing
-    public float firingSwayResetSpeed = 5f; // Speed at which firing sway resets
+    public float firingSwayAmount = 0.03f;
+    public float firingSwayResetSpeed = 5f;
 
     private Vector2 lookInput;
     private Vector3 initialPosition;
-    private Vector3 firingSwayOffset; // Tracks the current firing sway
+    private Vector3 firingSwayOffset;
 
     private Rigidbody playerRB;
 

@@ -1,4 +1,4 @@
-
+﻿
 using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
@@ -12,7 +12,7 @@ public class BulletCollision : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)//oyuncu mermisi istrigger değil
     {
         ContactPoint contact = collision.GetContact(0);
         Debug.Log("collison tag:"+collision.gameObject.tag);
@@ -25,7 +25,7 @@ public class BulletCollision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player")) 
         {
-
+            //oyuncuyla temasında ne olacağına karar vermedim o yüzden boş
         }
         else 
         {
@@ -33,12 +33,12 @@ public class BulletCollision : MonoBehaviour
         }
         this.gameObject.SetActive(false);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)//düşman mermisi istrigger
     {
         Vector3 collisionPoint = other.ClosestPoint(transform.position);
         if (other.CompareTag("Player"))
         {
-            // Handle player collision logic here
+            //oyuncuyla temasında ne olacağına karar vermedim o yüzden boş
         }
         else
         {

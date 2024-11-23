@@ -12,7 +12,7 @@ public class PlayerCameraController : MonoBehaviour
     public bool enableRecoil = true;            // Toggle to enable or disable recoil
 
     private float verticalRotation = 0f;        // Tracks vertical rotation
-    private Gun enemyGun;                  // Reference to EnemyGun for shooting
+    private Gun playerGun;                  // Reference to EnemyGun for shooting
 
     private Vector3 originalCamRotation;        // Stores the initial rotation of the camera
     private Vector3 recoilOffset;               // Stores the current recoil offset
@@ -43,7 +43,7 @@ public class PlayerCameraController : MonoBehaviour
 
 
         // Continuously check if the weapon has changed
-        if (WeaponSwitcher.Instance.GetCurrentWeapon() != enemyGun)
+        if (WeaponSwitcher.Instance.GetCurrentWeapon() != playerGun)
         {
             UpdateWeaponData();
         }
@@ -76,7 +76,7 @@ public class PlayerCameraController : MonoBehaviour
             
             Vector3 shootDirection;
 
-            //// Check for a hit point (useful for aiming at objects) or fallback to a far point
+            
             //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 10f, ~ignoreThose))
             //{
             //    shootDirection = hit.point;
@@ -86,16 +86,15 @@ public class PlayerCameraController : MonoBehaviour
                  shootDirection= cam.transform.forward* 2000f;
             //}
 
-            // Trigger the shooting logic with the calculated direction
-            
-            enemyGun.isShooting = true;
-            enemyGun.HandleShooting(enemyGun.isShooting, shootDirection);
+
+            playerGun.isShooting = true;
+            playerGun.HandleShooting(playerGun.isShooting, shootDirection);
 
             
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            enemyGun.isShooting = false;
+            playerGun.isShooting = false;
         }
     }
 
@@ -118,13 +117,13 @@ public class PlayerCameraController : MonoBehaviour
     private void UpdateWeaponData()
     {
         // Get the current weapon
-        enemyGun = WeaponSwitcher.Instance.GetCurrentWeapon();
+        playerGun = WeaponSwitcher.Instance.GetCurrentWeapon();
 
-        if (enemyGun != null)
+        if (playerGun != null)
         {
             // Update recoil settings from the current weapon
-            recoilAmount = enemyGun.recoilAmount;
-            recoilSpeed = enemyGun.recoilSpeed;
+            recoilAmount = playerGun.recoilAmount;
+            recoilSpeed = playerGun.recoilSpeed;
         }
     }
 }

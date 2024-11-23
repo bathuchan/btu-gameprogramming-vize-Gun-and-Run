@@ -1,16 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    public static WeaponSwitcher Instance { get; private set; } // Singleton instance
+    public static WeaponSwitcher Instance { get; private set; }
 
-    public Gun[] weapons; // Array of weapon scripts (Single, Burst, Shotgun)
-    public int currentWeaponIndex = 0; // Current weapon index
-    private Gun currentWeaponScript; // Active weapon script
+    public Gun[] weapons;
+    public int currentWeaponIndex = 0;
+    private Gun currentWeaponScript; 
 
     private void Awake()
     {
-        // Implement singleton pattern
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -34,12 +33,12 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void HandleWeaponSwitchInput()
     {
-        // Check for number key input
+        // 1,2,3
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
 
-        // Check for mouse scroll input
+        // MouseScroll
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0) SwitchWeapon((currentWeaponIndex + 1) % weapons.Length); // Scroll up
         if (scroll < 0) SwitchWeapon((currentWeaponIndex - 1 + weapons.Length) % weapons.Length); // Scroll down
@@ -68,13 +67,11 @@ public class WeaponSwitcher : MonoBehaviour
         
         currentWeaponScript.gameObject.SetActive(true);
 
-        // Update weapon-specific properties, if needed
-        //UpdateWeaponProperties(currentWeaponScript);
     }
 
     private void UpdateWeaponProperties(Gun weapon)
     {
-        // Set weapon-specific properties or modes, if needed
+       //kullanmadım sanırım bunu
         switch (currentWeaponIndex)
         {
             case 0: weapon.fireMode = Gun.FireMode.Single; break;
@@ -85,6 +82,6 @@ public class WeaponSwitcher : MonoBehaviour
 
     public  Gun GetCurrentWeapon()
     {
-        return currentWeaponScript; // Return the currently equipped weapon
+        return currentWeaponScript; 
     }
 }

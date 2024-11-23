@@ -176,40 +176,37 @@ public class Gun : MonoBehaviour
 
     private void FireBullet(Vector3 direction)
     {
-        // Get a bullet from the pool
         GameObject bullet = GetBulletFromPool();
 
         if (bullet != null)
         {
-            // Cancel any existing lifespan coroutine for this bullet
+            // Optimizasyon
             if (bulletLifespans.ContainsKey(bullet) && bulletLifespans[bullet] != null)
             {
                 StopCoroutine(bulletLifespans[bullet]);
                 bulletLifespans.Remove(bullet);
             }
             
-                // Adding recoil
+                // Rastgele geri tepme
                 float randomAngleX = Random.Range(-bulletRandomness, bulletRandomness);
                 float randomAngleY = Random.Range(-bulletRandomness, bulletRandomness);
 
+                //Rotasyon
                 Quaternion recoilRotation = Quaternion.Euler(0, randomAngleY, randomAngleX);
                 direction = recoilRotation * direction;
            
             
-            
-
-            // Pool settings
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(direction);
             bullet.SetActive(true);
 
+            //Hareket
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.velocity = direction * bulletSpeed;
             }
 
-            // Start a new lifespan coroutine for the bullet
             Coroutine lifespanCoroutine = StartCoroutine(ReturnBulletToPoolAfterLifespan(bullet));
             bulletLifespans[bullet] = lifespanCoroutine;
         }
