@@ -42,11 +42,28 @@
 | Shoot            | `Left Mouse Button(Hold)`|
 
 ---
-## Action List
+## Action List(For grading our project)
 - **Batuhan Şengül - 20360859008**: 
-    - asd
-    - aer
-- **Aleks Dulda - ????**: 
+    - Düşman hareketi EnemyBehavior.cs:51
+    - Düşmanın önündeki engeli algılaması EnemyBehavior.cs:61
+    - Düşmanın Oyuncuyu fark etmesi/ ona doğru ateş etmeye ve harekete başlaması EnemyBehavior.cs:114
+    - Düşmanın Oyuncuyu kaybetmesi/ ona doğru ateş etmeyi ve hareketi durdurması EnemyBehavior.cs:123
+    - Oyuncunun silahları arasında değişim yapması (1,2,3 ya da MouseScroll) WeaponSwitcher.cs:34
+    - Düşman mermisinin başka nesnelerle teması(trigger) ve oluşturulan parçacık efektleri(kan, mermi deliği) BulletCollision.cs:36
+    - Oyuncu mermisinin başka nesnelerle teması(trigger değil) ve oluşturulan parçacık efektleri(kan, mermi deliği) BulletCollision.cs:15
+    - Mouse ile kamera kontrolleri(gerekli sınırlandırmalar) PlayerCameraController.cs:55
+    - Silah ile ateş etmek PlayerCameraController.cs:74
+    - Silah ateş etme geri tepme efekti PlayerCameraController.cs:101
+    - Mouse ya da oyuncunun girdisine bağlı silahın yalpalaması WeaponSway.cs:36
+    - Ateş edilen merminin fiziği(rastgelelik, rotasyon, hareketi) Gun.cs:190,194,203
+      ...
+    
+- **Aleks Dulda - 21360859025**: 
+    - Oyuncunun hareketi PlayerMovement.cs:106
+    - Koşma tuşu kontrolü (Left Shift) PlayerMovement.cs:72
+    - Zemin kontrolü (raycast) PlayerMovement.cs:61
+    - Zıplama kontrolü PlayerMovement.cs:64
+    - Dash PlayerMovement.cs:111
 ---
 
 
