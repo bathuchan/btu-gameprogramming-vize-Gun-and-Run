@@ -4,6 +4,8 @@
 "Gun & Run" is a fast-paced, action-packed shooter game where you must outmaneuver and eliminate enemies while managing your movement and combat tactics. Test your skills against three unique enemy types and prove you’re the fastest gun in town!
 
 ---
+## Play The Game
+[game](https://bathuchan.itch.io/gun-run)
 
 ## Current Features
 - **Dynamic Movement**: 
