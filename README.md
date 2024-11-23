@@ -10,15 +10,15 @@
   - Smooth walking, running, jumping, and dashing mechanics.
   - Adaptive camera FOV changes based on player actions.
 - **Diverse Enemy Types**:
-  - ![pistol-enemy]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/pistol-soldier.png) **Pistol-wielding enemies(Red)**: Balanced and precise shooters.
-  -  ![shotgun-enemy]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/shotgun_soldier.png) **Shotgun enemies(Green)**: Deadly at close range with wide-spread shots.
-  - ![burst-enemy]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/ar-soldier.png)  **Burst rifle enemies(Blue)**: Delivering high damage in controlled bursts.
+  - ![pistol-enemy](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/pistol-soldier.png) **Pistol-wielding enemies(Red)**: Balanced and precise shooters.
+  -  ![shotgun-enemy](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/shotgun_soldier.png) **Shotgun enemies(Green)**: Deadly at close range with wide-spread shots.
+  - ![burst-enemy](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/ar-soldier.png)  **Burst rifle enemies(Blue)**: Delivering high damage in controlled bursts.
 - **Realistic Gunplay**: 
   - Recoil mechanics, shooting effects, and weapon sway for an immersive experience.
     - **Player's Guns**: 
-    -  ![smg]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/smg.png) **SMG**: Rapid firing shots.
-    - ![shotgun]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/shotgun_db.png)  **Shotgun**: Deadly at close range with wide-spread shots.
-    - ![ar]( https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/Batu/Textures/ar.png)  **Burst rifle**: Delivering high damage in controlled bursts.
+    -  ![smg](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/smg.png) **SMG**: Rapid firing shots.
+    - ![shotgun](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/shotgun_db.png)  **Shotgun**: Deadly at close range with wide-spread shots.
+    - ![ar](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Assets/AllFiles/Textures/ar.png)  **Burst rifle**: Delivering high damage in controlled bursts.
 - **Field of View (FOV) Adjustments**:
   - FOV dynamically changes when running or dashing for an engaging visual experience.
 - **Particle Effects**:
