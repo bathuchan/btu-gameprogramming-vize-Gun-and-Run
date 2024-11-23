@@ -56,8 +56,7 @@
     - Silah ateş etme geri tepme efekti PlayerCameraController.cs:101
     - Mouse ya da oyuncunun girdisine bağlı silahın yalpalaması WeaponSway.cs:36
     - Ateş edilen merminin fiziği(rastgelelik, rotasyon, hareketi) Gun.cs:190,194,203
-...
-    
+        
 - **Aleks Dulda - 21360859025**: 
     - Oyuncunun hareketi PlayerMovement.cs:106
     - Koşma tuşu kontrolü (Left Shift) PlayerMovement.cs:72
