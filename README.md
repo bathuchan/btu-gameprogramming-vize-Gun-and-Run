@@ -23,6 +23,10 @@
   - FOV dynamically changes when running or dashing for an engaging visual experience.
 - **Particle Effects**:
   - Blood, Bullet holes and more gun specfic effects.
+## Gameplay Screenshots
+![ss1](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Screenshots/ss1.png)
+![ss2](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Screenshots/ss2.png)
+![ss3](https://github.com/bathuchan/btu-gameprogramming-vize-Gun-and-Run/blob/main/Screenshots/ss3.png)
 
 ## Planned Features
 - **Power Ups / Special Abilities**
