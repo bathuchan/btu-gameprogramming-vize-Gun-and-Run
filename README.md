@@ -1,11 +1,11 @@
-# Gun & Run
+![gameLogo](https://img.itch.zone/aW1nLzE4Njk4NTExLnBuZw==/original/syhrON.png)
 >This is a demo for a still worked project called "Gun & Run". This project is being developed for ***Bursa Technic University BLM0364 _Oyun Programlama*** midterm by ***Batuhan Şengül*** and ***Aleks Dulda***.
 
 "Gun & Run" is a fast-paced, action-packed shooter game where you must outmaneuver and eliminate enemies while managing your movement and combat tactics. Test your skills against three unique enemy types and prove you’re the fastest gun in town!
 
 ---
 
-> **[Play The Game - itch.io](https://bathuchan.itch.io/gun-run)** 
+> **[Play Gun & Run - itch.io](https://bathuchan.itch.io/gun-run)** 
 
 ## Current Features
 - **Dynamic Movement**: 
