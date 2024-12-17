@@ -10,7 +10,7 @@ public class WeaponSway : MonoBehaviour
     public float firingSwayResetSpeed = 5f;
 
     private Vector2 lookInput;
-    private Vector3 initialPosition;
+    [HideInInspector]public Vector3 initialPosition;
     private Vector3 firingSwayOffset;
 
     private Rigidbody playerRB;

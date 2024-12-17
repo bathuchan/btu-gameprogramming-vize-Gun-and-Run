@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -19,12 +21,16 @@ public class Gun : MonoBehaviour
     public float recoilAmount = 2f; // Adjust recoil per gun
     public float recoilSpeed = 5f;  // Adjust recovery speed per gun
     public int poolSize = 20;
+
     [HideInInspector]public bool isShooting=false;
 
     [HideInInspector] public int burstCount = 3;
     [HideInInspector] public int shotgunPellets = 5;
     [HideInInspector] public float shotgunSpreadAngle = 30f;
-
+    [Header("Ammo Settings")]
+    public int maxAmmo = 30;
+    public int currentAmmo;
+    public TextMeshProUGUI maxAmmoText, currentAmmoText;
     [Header("Shooting Effects")]
     public List<ParticleSystem> shootingEffects = new List<ParticleSystem>();
 
@@ -36,7 +42,14 @@ public class Gun : MonoBehaviour
     private bool isEnemy;
     private PlayerCameraController playerCameraController;
     public WeaponSway weaponSway;
+    private Animator animator;
+    [HideInInspector] public bool isReloading=false;
 
+    private void Awake()
+    {
+        isEnemy = gameObject.CompareTag("Enemy");
+        currentAmmo = maxAmmo;
+    }
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -51,11 +64,26 @@ public class Gun : MonoBehaviour
             bullet.SetActive(false);
             bulletPool.Add(bullet);
         }
-        isEnemy = gameObject.CompareTag("Enemy");
+        
         playerCameraController= GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCameraController>();
 
         TryGetComponent<WeaponSway>(out weaponSway);
+        animator = GetComponent<Animator>();
+        
+
+
     }
+    private void OnEnable()
+    {
+        if (!isEnemy) 
+        {
+            
+            currentAmmoText.text = currentAmmo + "";
+            maxAmmoText.text = "/" + maxAmmo;
+        }
+        
+    }
+    
 
     private void Update()
     {
@@ -66,12 +94,20 @@ public class Gun : MonoBehaviour
         if (playerCameraController.enableRecoil && !isEnemy)
         {
             playerCameraController.ApplyRecoil(); // Smoothly apply and reset recoil
+            if (Input.GetKeyDown(KeyCode.R)&&!isReloading) 
+            {
+                startAnimator();
+                animator.SetTrigger("Reload");
+                weaponSway.enabled = false;
+                isReloading = true;
+
+            }
         }
 
     }
     public void HandleShooting(bool isShooting, Vector3 towards)
     {
-        if (isShooting && Time.time >= nextFireTime)
+        if (isShooting && Time.time >= nextFireTime &&currentAmmo>0)
         {
             switch (fireMode)
             {
@@ -91,6 +127,7 @@ public class Gun : MonoBehaviour
             
 
             nextFireTime = Time.time + fireRate;
+            
         }
     }
 
@@ -104,8 +141,13 @@ public class Gun : MonoBehaviour
             playerCameraController.ApplyCameraRecoil();
             
             weaponSway.ApplyFiringSway();
+            
+            currentAmmo--;
+            currentAmmoText.text = currentAmmo + "";
         }
         PlayShootingEffects();
+        
+        
     }
         
            
@@ -124,10 +166,14 @@ public class Gun : MonoBehaviour
                 playerCameraController.ApplyCameraRecoil();
                 
                 weaponSway.ApplyFiringSway();
+                
+                currentAmmo--;
+                currentAmmoText.text = currentAmmo + "";
             }
             PlayShootingEffects();
-
+            
         }
+        
         yield return new WaitForSeconds(fireRate);
         fireCoroutine = null;
     }
@@ -166,9 +212,13 @@ public class Gun : MonoBehaviour
             playerCameraController.ApplyCameraRecoil();
             
             weaponSway.ApplyFiringSway();
+            
+            currentAmmo--;
+            currentAmmoText.text = currentAmmo + "";
+
         }
         PlayShootingEffects();
-
+        
 
     }
 
@@ -258,5 +308,33 @@ public class Gun : MonoBehaviour
             }
         }
     }
+    
 
+    public void ReloadGun() 
+    {
+        weaponSway.enabled = true;
+        currentAmmo =maxAmmo;
+        currentAmmoText.text = currentAmmo + "";
+        stopAnimator();
+    }
+
+    public void startAnimator()
+    {
+        animator.enabled = true;
+
+    }
+    public void stopAnimator() 
+    {
+        animator.enabled = false;
+        weaponSway.enabled = true;
+        if (isReloading == true) 
+        {
+            isReloading = false;
+        }
+    }
+    private void LateUpdate()
+    {
+        if(weaponSway!=null&& !weaponSway.enabled&&isReloading &&!isEnemy)
+            transform.localPosition = Vector3.Lerp(transform.localPosition,  weaponSway.initialPosition, Time.deltaTime * weaponSway.swaySmoothValue);
+    }
 }

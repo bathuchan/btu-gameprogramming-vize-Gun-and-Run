@@ -33,15 +33,19 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void HandleWeaponSwitchInput()
     {
-        // 1,2,3
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
+        if (!currentWeaponScript.isReloading) 
+        {
+            // 1,2,3
+            if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
 
-        // MouseScroll
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0) SwitchWeapon((currentWeaponIndex + 1) % weapons.Length); // Scroll up
-        if (scroll < 0) SwitchWeapon((currentWeaponIndex - 1 + weapons.Length) % weapons.Length); // Scroll down
+            // MouseScroll
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0) SwitchWeapon((currentWeaponIndex + 1) % weapons.Length); // Scroll up
+            if (scroll < 0) SwitchWeapon((currentWeaponIndex - 1 + weapons.Length) % weapons.Length); // Scroll down
+        }
+        
     }
 
     private void SwitchWeapon(int newWeaponIndex)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerCameraController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerCameraController : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-
+        
         // Lock the cursor for better camera control
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -37,9 +38,6 @@ public class PlayerCameraController : MonoBehaviour
     private void Update()
     {
         HandleGunBehavior();
-        
-
-        
 
 
         // Continuously check if the weapon has changed
@@ -71,7 +69,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void HandleGunBehavior()
     {
-        if (Input.GetButton("Fire1")) // Left mouse button to shoot
+        if (Input.GetButton("Fire1")&& !playerGun.isReloading) // Left mouse button to shoot
         {
             
             Vector3 shootDirection;
