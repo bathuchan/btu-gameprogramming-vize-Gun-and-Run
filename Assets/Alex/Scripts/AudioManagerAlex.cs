@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioManager : MonoBehaviour
+public class AudioManagerAlex : MonoBehaviour
 {
     [Header(" ---------- Audio Sources ---------- ")]
     [SerializeField] AudioSource backgroundSound;
@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
 
 
 
-    private static AudioManager instance;
+    private static AudioManagerAlex instance;
 
     [SerializeField] Slider volumeSlider;
 
