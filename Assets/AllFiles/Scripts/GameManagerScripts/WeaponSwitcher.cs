@@ -6,7 +6,8 @@ public class WeaponSwitcher : MonoBehaviour
 
     public Gun[] weapons;
     public int currentWeaponIndex = 0;
-    private Gun currentWeaponScript; 
+    private Gun currentWeaponScript;
+    private PauseMenu pauseMenu;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void Start()
     {
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
         if (weapons.Length > 0)
         {
             EquipWeapon(currentWeaponIndex);
@@ -28,7 +30,11 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void Update()
     {
-        HandleWeaponSwitchInput();
+        if (!pauseMenu.isPaused) 
+        {
+            HandleWeaponSwitchInput();
+        }
+        
     }
 
     private void HandleWeaponSwitchInput()

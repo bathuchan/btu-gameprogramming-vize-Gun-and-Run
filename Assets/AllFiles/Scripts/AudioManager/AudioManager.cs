@@ -40,13 +40,14 @@ public class AudioManager : MonoBehaviour
             else
             {
                 AttachSoundToObject(s, s.attachedObject != null ? s.attachedObject : gameObject);
+                if (s.playOnAwake)
+                    Play(s.name);
             }
         }
     }
 
     private void Start()
     {
-        Play("MainTheme");
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
 

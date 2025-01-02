@@ -63,7 +63,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private IEnumerator MoveTowardsPlayer()
     {
-        while (isPlayerInRange && !avoidingObstacle)
+        while (isPlayerInRange && !avoidingObstacle )
         {
             if (player == null) yield break;
 

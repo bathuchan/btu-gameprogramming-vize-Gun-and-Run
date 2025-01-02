@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public float fovChangeSpeed = 2f;      // Speed for lerping the FOV
 
     private float originalFov;             // The original FOV value
+    private PauseMenu pauseMenu;
 
 
     void Start()
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = Camera.main;  // Get the main camera
         originalFov = playerCamera.fieldOfView; // Save the original FOV
         AudioManager.Instance.OnPlayerLoaded(gameObject);
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
     }
 
     void Update()
@@ -63,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, -transform.up, groundCheckDistance,groundLayer);
 
         // Zýplama kontrolü (zýplama zamanlayýcýsý ile)
-        if (Input.GetKey(KeyCode.Space) && isGrounded && Time.time - lastJumpTime >= jumpCooldown)
+        if (Input.GetKey(KeyCode.Space) && isGrounded && Time.time - lastJumpTime >= jumpCooldown && !pauseMenu.isPaused)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             lastJumpTime = Time.time;
@@ -71,15 +73,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Koþma tuþu kontrolü (Left Shift)
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !pauseMenu.isPaused)
         {
             isRunning = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !pauseMenu.isPaused)
         {
             isRunning = false;
         }
-        if ((Input.GetKey(dashKey)|| Input.GetKey(dashKeyAlternative)) && canDash)
+        if ((Input.GetKey(dashKey)|| Input.GetKey(dashKeyAlternative)) && canDash && !pauseMenu.isPaused)
         {
             StartCoroutine(Dash());
         }
@@ -171,6 +173,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Smoothly interpolate FOV
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFov, fovChangeSpeed * Time.deltaTime);
+    }
+
+    public void ResetFov() 
+    {
+        playerCamera.fieldOfView =originalFov;
     }
 
     private void OnDrawGizmos()

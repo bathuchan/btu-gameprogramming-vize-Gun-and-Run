@@ -21,6 +21,7 @@ public class PlayerCameraController : MonoBehaviour
     private float recoilAmount = 1f;            // Amount of camera recoil
     private float recoilSpeed = 5f;             // Speed at which recoil effect is applied and reset
 
+    private PauseMenu pauseMenu;
     private void Start()
     {
         cam = Camera.main;
@@ -33,6 +34,7 @@ public class PlayerCameraController : MonoBehaviour
         UpdateWeaponData();
 
         originalCamRotation = cam.transform.localEulerAngles;
+        pauseMenu=GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
     }
 
     private void Update()
@@ -69,7 +71,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void HandleGunBehavior()
     {
-        if (Input.GetButton("Fire1")&& !playerGun.isReloading) // Left mouse button to shoot
+        if (Input.GetButton("Fire1")&& !playerGun.isReloading && !pauseMenu.isPaused) // Left mouse button to shoot
         {
             if (playerGun.currentAmmo==0) 
             {
@@ -93,7 +95,7 @@ public class PlayerCameraController : MonoBehaviour
 
             
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") && !pauseMenu.isPaused)
         {
             playerGun.isShooting = false;
         }
