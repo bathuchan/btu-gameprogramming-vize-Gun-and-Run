@@ -18,7 +18,7 @@ public class EnemyBehavior : MonoBehaviour
     private Coroutine moveTowardsPlayerCoroutine;
 
     private SpriteRenderer spriteRenderer;
-    private Texture2D modifiableTexture;
+   
 
     private void Awake()
     {
@@ -31,32 +31,9 @@ public class EnemyBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         enemyGun = GetComponent<Gun>();
 
-        InitializeModifiableTexture();
     }
 
-    private void InitializeModifiableTexture()
-    {
-        Sprite originalSprite = spriteRenderer.sprite;
-        Texture2D originalTexture = originalSprite.texture;
-
-        // Create a new Texture2D
-        modifiableTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
-
-        // Copy the pixel data from the original texture
-        modifiableTexture.SetPixels(originalTexture.GetPixels());
-        modifiableTexture.Apply();
-
-        // Set texture properties to match the original
-        modifiableTexture.filterMode = FilterMode.Point; // No smoothing
-        modifiableTexture.wrapMode = originalTexture.wrapMode; // Match the original wrap mode
-        modifiableTexture.anisoLevel = 0; // Disable anisotropic filtering (not needed for pixel art)
-
-        // Create a new sprite with the modifiable texture
-        Sprite newSprite = Sprite.Create(modifiableTexture, originalSprite.rect, new Vector2(0.5f, 0.5f), originalSprite.pixelsPerUnit);
-
-        // Assign the new sprite to the SpriteRenderer
-        spriteRenderer.sprite = newSprite;
-    }
+  
 
 
     private void Update()
@@ -164,51 +141,9 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    public Vector2 GetTextureCoord(Vector3 worldPoint)
-    {
-        // Step 1: Transform world point to local space relative to the enemy
-        Vector3 localPoint = transform.InverseTransformPoint(worldPoint);
+    
 
-        // Step 2: Adjust for the parent's local scale
-        Vector3 scaledLocalPoint = new Vector3(
-            localPoint.x / transform.lossyScale.x,
-            localPoint.y / transform.lossyScale.y,
-            localPoint.z / transform.lossyScale.z
-        );
-
-        // Step 3: Map local space coordinates to UV (0-1 range) using sprite bounds
-        Bounds bounds = spriteRenderer.bounds;
-        float uvX = (scaledLocalPoint.x + (bounds.size.x / 2)) / bounds.size.x;
-        float uvY = (scaledLocalPoint.y + (bounds.size.y / 2)) / bounds.size.y;
-
-        Debug.Log($"UV Coordinates: ({uvX}, {uvY})");
-        return new Vector2(uvX, uvY);
-    }
-
-    //Vector2 ConvertLocalToUV(Vector3 localPoint)
-    //{
-    //    Bounds bounds = spriteRenderer.sprite.bounds;
-
-    //    // Map local space coordinates to 0-1 range
-    //    float uvX = (localPoint.x - bounds.min.x) / bounds.size.x;
-    //    float uvY = (localPoint.y - bounds.min.y) / bounds.size.y;
-
-    //    return new Vector2(uvX, uvY);
-    //}
-
-
-    public void ApplyPixelDamage(Vector2 uv)
-    {
-        // Convert UV coordinates to pixel coordinates
-        int x = Mathf.Clamp(Mathf.RoundToInt(uv.x * modifiableTexture.width), 0, modifiableTexture.width - 1);
-        int y = Mathf.Clamp(Mathf.RoundToInt(uv.y * modifiableTexture.height), 0, modifiableTexture.height - 1);
-
-        Debug.Log($"Pixel Coordinates: ({x}, {y})");
-
-        // Modify the pixel at the calculated position
-        modifiableTexture.SetPixel(x, y, new Color(0, 0, 0, 0)); // Set to transparent
-        modifiableTexture.Apply();
-    }
+   
 
 
 

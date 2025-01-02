@@ -61,6 +61,7 @@ public class WeaponSwitcher : MonoBehaviour
         // Disable current weapon
         if (currentWeaponScript != null)
         {
+            currentWeaponScript.isReloading = false;
             currentWeaponScript.gameObject.SetActive(false);
         }
 

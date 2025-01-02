@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerCamera = Camera.main;  // Get the main camera
         originalFov = playerCamera.fieldOfView; // Save the original FOV
+        AudioManager.Instance.OnPlayerLoaded(gameObject);
     }
 
     void Update()

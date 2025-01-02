@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
     private bool isEnemy;
     private PlayerCameraController playerCameraController;
     public WeaponSway weaponSway;
-    private Animator animator;
+    [HideInInspector] public Animator animator;
     [HideInInspector] public bool isReloading=false;
 
     private void Awake()
@@ -94,7 +94,7 @@ public class Gun : MonoBehaviour
         if (playerCameraController.enableRecoil && !isEnemy)
         {
             playerCameraController.ApplyRecoil(); // Smoothly apply and reset recoil
-            if (Input.GetKeyDown(KeyCode.R)&&!isReloading) 
+            if (Input.GetKeyDown(KeyCode.R)&&!isReloading&&currentAmmo!=maxAmmo) 
             {
                 startAnimator();
                 animator.SetTrigger("Reload");
@@ -144,8 +144,10 @@ public class Gun : MonoBehaviour
             
             currentAmmo--;
             currentAmmoText.text = currentAmmo + "";
+            AudioManager.Instance.Play("smgSFX");
         }
         PlayShootingEffects();
+        
         
         
     }
@@ -166,7 +168,8 @@ public class Gun : MonoBehaviour
                 playerCameraController.ApplyCameraRecoil();
                 
                 weaponSway.ApplyFiringSway();
-                
+                AudioManager.Instance.Play("burstSFX");
+
                 currentAmmo--;
                 currentAmmoText.text = currentAmmo + "";
             }
@@ -212,7 +215,8 @@ public class Gun : MonoBehaviour
             playerCameraController.ApplyCameraRecoil();
             
             weaponSway.ApplyFiringSway();
-            
+            AudioManager.Instance.Play("shotgunSFX");
+
             currentAmmo--;
             currentAmmoText.text = currentAmmo + "";
 
@@ -321,6 +325,7 @@ public class Gun : MonoBehaviour
     public void startAnimator()
     {
         animator.enabled = true;
+        AudioManager.Instance.Play("reloadSFX");
 
     }
     public void stopAnimator() 
