@@ -71,18 +71,21 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (Input.GetButton("Fire1")&& !playerGun.isReloading) // Left mouse button to shoot
         {
+            if (playerGun.currentAmmo==0) 
+            {
+                playerGun.startAnimator();
+                playerGun.animator.SetTrigger("Reload");
+                playerGun.weaponSway.enabled = false;
+                playerGun.isReloading = true;
+                return;
+            }
             
             Vector3 shootDirection;
 
             
-            //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 10f, ~ignoreThose))
-            //{
-            //    shootDirection = hit.point;
-            //}
-            //else
-            //{
-                 shootDirection= cam.transform.forward* 2000f;
-            //}
+            
+            shootDirection= cam.transform.forward* 2000f;
+            
 
 
             playerGun.isShooting = true;

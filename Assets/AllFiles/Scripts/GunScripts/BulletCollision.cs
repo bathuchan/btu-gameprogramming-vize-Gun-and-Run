@@ -18,20 +18,8 @@ public class BulletCollision : MonoBehaviour
         {
             particleManager.PlaceBlood(contact.point, Quaternion.identity);
 
-            // Get EnemyBehavior component
-            EnemyBehavior enemy = collision.gameObject.GetComponent<EnemyBehavior>();
-            if (enemy != null)
-            {
-                // Map collision point to sprite texture and apply damage
-                Vector2 textureCoord = enemy.GetTextureCoord(contact.point);
-                Debug.Log($"Texture Coordinates: {textureCoord}");
-
-                enemy.ApplyPixelDamage(textureCoord);
-            }
-            else
-            {
-                Debug.LogWarning("Enemy does not have an EnemyBehavior component!");
-            }
+            //EnemyBehavior enemy = collision.gameObject.GetComponent<EnemyBehavior>();
+          
         }
         else if (collision.gameObject.CompareTag("Player"))
         {

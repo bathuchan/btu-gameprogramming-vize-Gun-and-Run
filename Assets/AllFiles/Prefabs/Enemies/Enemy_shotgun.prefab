@@ -5262,7 +5262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6388147035494217427}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db5335935c41094f9e114bb0f8b0125, type: 3}
   m_Name: 
@@ -5283,10 +5283,15 @@ MonoBehaviour:
   burstCount: 4
   shotgunPellets: 5
   shotgunSpreadAngle: 30
+  maxAmmo: 30
+  currentAmmo: 0
+  maxAmmoText: {fileID: 0}
+  currentAmmoText: {fileID: 0}
   shootingEffects:
   - {fileID: 3997327240984629434}
   - {fileID: 2638916436130597900}
   weaponSway: {fileID: 0}
+  isReloading: 0
 --- !u!1 &9082957929925840166
 GameObject:
   m_ObjectHideFlags: 0
