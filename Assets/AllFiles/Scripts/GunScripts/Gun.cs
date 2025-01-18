@@ -21,6 +21,7 @@ public class Gun : MonoBehaviour
     public float recoilAmount = 2f; // Adjust recoil per gun
     public float recoilSpeed = 5f;  // Adjust recovery speed per gun
     public int poolSize = 20;
+    private AudioSource gunhotSound;
 
     [HideInInspector]public bool isShooting=false;
 
@@ -44,7 +45,7 @@ public class Gun : MonoBehaviour
     public WeaponSway weaponSway;
     [HideInInspector] public Animator animator;
     [HideInInspector] public bool isReloading=false;
-
+    [HideInInspector] public bool isInspected = false;
     private void Awake()
     {
         isEnemy = gameObject.CompareTag("Enemy");
@@ -69,6 +70,12 @@ public class Gun : MonoBehaviour
 
         TryGetComponent<WeaponSway>(out weaponSway);
         animator = GetComponent<Animator>();
+
+        gameObject.TryGetComponent<AudioSource>(out gunhotSound); 
+        
+        isReloading = false;
+        isShooting= false;
+        isInspected=false;
         
 
 
@@ -83,7 +90,7 @@ public class Gun : MonoBehaviour
         }
         
     }
-    
+    Coroutine resetPosCoroutine;
 
     private void Update()
     {
@@ -98,7 +105,17 @@ public class Gun : MonoBehaviour
             {
                 startAnimator();
                 animator.SetTrigger("Reload");
-                weaponSway.enabled = false;
+
+                if (resetPosCoroutine == null) 
+                {
+                    resetPosCoroutine = StartCoroutine(weaponSway.ResetPositonCoroutine());
+                }
+                else 
+                {
+                    StopCoroutine(resetPosCoroutine);
+                    resetPosCoroutine = StartCoroutine(weaponSway.ResetPositonCoroutine());
+                }
+                
                 isReloading = true;
 
             }
@@ -124,7 +141,6 @@ public class Gun : MonoBehaviour
             }
             
             
-            
 
             nextFireTime = Time.time + fireRate;
             
@@ -135,8 +151,13 @@ public class Gun : MonoBehaviour
     {
         Vector3 direction = (towards - bulletSpawnPoint.position).normalized;
         FireBullet(direction);
+        if (gunhotSound != null && isEnemy)
+        {
+            gunhotSound.Play();
+        }
         if (playerCameraController.enableRecoil && !isEnemy)
         {
+            
             // Apply recoil effect
             playerCameraController.ApplyCameraRecoil();
             
@@ -160,6 +181,11 @@ public class Gun : MonoBehaviour
         for (int i = 0; i < burstCount; i++)
         {
             FireBullet(direction);
+            if (gunhotSound != null&&isEnemy)
+            {
+                gunhotSound.Play();
+            }
+            PlayShootingEffects();
             yield return new WaitForSeconds(fireRate / burstCount);
             
             if (playerCameraController.enableRecoil&&!isEnemy)
@@ -173,7 +199,7 @@ public class Gun : MonoBehaviour
                 currentAmmo--;
                 currentAmmoText.text = currentAmmo + "";
             }
-            PlayShootingEffects();
+            
             
         }
         
@@ -207,6 +233,12 @@ public class Gun : MonoBehaviour
             Vector3 direction =  rotation*baseDirection;
 
             FireBullet(direction);
+            
+
+        }
+        if (gunhotSound != null && isEnemy)
+        {
+            gunhotSound.Play();
         }
 
         if (playerCameraController.enableRecoil && !isEnemy)
@@ -316,11 +348,21 @@ public class Gun : MonoBehaviour
 
     public void ReloadGun() 
     {
-        weaponSway.enabled = true;
+        //weaponSway.enabled = true;
         currentAmmo =maxAmmo;
         currentAmmoText.text = currentAmmo + "";
         stopAnimator();
     }
+
+    public void InspectWeapon()
+    {
+        animator.enabled = true;
+        animator.SetTrigger("Inspect");
+        isInspected = true;
+        
+
+    }
+    
 
     public void startAnimator()
     {
@@ -328,14 +370,27 @@ public class Gun : MonoBehaviour
         AudioManager.Instance.Play("reloadSFX");
 
     }
-    public void stopAnimator() 
+    public void stopAnimator()  
     {
         animator.enabled = false;
         weaponSway.enabled = true;
+        // weaponSway.enabled = true;
         if (isReloading == true) 
         {
             isReloading = false;
         }
+        if (isInspected == true) 
+        {
+            isInspected = false;
+        }
+    }
+    public void stopSway()
+    {
+        weaponSway.enabled = false;
+    }
+    public void startSway()
+    {
+        weaponSway.enabled = true;
     }
     private void LateUpdate()
     {

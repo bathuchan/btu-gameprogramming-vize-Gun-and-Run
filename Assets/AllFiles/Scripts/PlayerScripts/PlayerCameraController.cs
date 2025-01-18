@@ -77,9 +77,23 @@ public class PlayerCameraController : MonoBehaviour
             {
                 playerGun.startAnimator();
                 playerGun.animator.SetTrigger("Reload");
-                playerGun.weaponSway.enabled = false;
+                //playerGun.weaponSway.enabled = false;
                 playerGun.isReloading = true;
                 return;
+            }
+
+            if (playerGun.isInspected) 
+            {
+                //StartCoroutine(playerGun.weaponSway.ResetPositonCoroutine());
+                playerGun.animator.SetTrigger("StopInspect");
+                playerGun.isInspected = false;
+                if (!playerGun.weaponSway.enabled) 
+                {
+                    playerGun.weaponSway.enabled=true;  
+                }
+                
+                playerGun.weaponSway.ResetTransform();
+                playerGun.stopAnimator();
             }
             
             Vector3 shootDirection;
@@ -98,6 +112,12 @@ public class PlayerCameraController : MonoBehaviour
         else if (Input.GetButtonUp("Fire1") && !pauseMenu.isPaused)
         {
             playerGun.isShooting = false;
+        }else if (Input.GetKeyDown(KeyCode.F)&&!playerGun.isReloading && !pauseMenu.isPaused)
+        {
+            //StartCoroutine(playerGun.weaponSway.ResetPositonCoroutine());
+            playerGun.InspectWeapon();
+            
+            //playerGun.weaponSway.enabled = false;
         }
     }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class WeaponSway : MonoBehaviour
@@ -11,14 +12,25 @@ public class WeaponSway : MonoBehaviour
 
     private Vector2 lookInput;
     [HideInInspector]public Vector3 initialPosition;
+    [HideInInspector] public Quaternion initialRotation;
     private Vector3 firingSwayOffset;
 
     private Rigidbody playerRB;
 
+    [HideInInspector]public GameObject childGameobject;
+    [HideInInspector]public Vector3 childTransformPos;
+    [HideInInspector] public Quaternion childTransformRot;
+
     private void Start()
     {
+        childGameobject = transform.GetChild(0).gameObject;
+        childTransformPos = childGameobject.transform.localPosition;
+        childTransformRot = childGameobject.transform.localRotation;
+
         GameObject.FindGameObjectWithTag("Player").gameObject.TryGetComponent<Rigidbody>(out playerRB);
         initialPosition = transform.localPosition;
+        initialRotation = transform.localRotation;
+        
     }
 
     private void LateUpdate()
@@ -64,5 +76,27 @@ public class WeaponSway : MonoBehaviour
             Random.Range(-firingSwayAmount, firingSwayAmount), // Vertical sway
             0
         );
+    }
+
+    public IEnumerator  ResetPositonCoroutine() 
+    {
+        while (transform.localPosition != initialPosition) 
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition,initialPosition, Time.deltaTime * swaySmoothValue);
+        }
+        yield return null;
+        
+    }
+    public void ResetTransform()
+    {
+        
+        transform.localPosition = initialPosition;
+        transform.localRotation = initialRotation;
+
+        childGameobject.transform.localPosition = childTransformPos;
+        childGameobject.transform.localRotation = childTransformRot;
+
+
+
     }
 }

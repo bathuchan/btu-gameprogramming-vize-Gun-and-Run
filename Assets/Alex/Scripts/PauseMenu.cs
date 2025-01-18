@@ -25,7 +25,8 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        
+        if (Input.GetButtonDown("Cancel"))
         {
             Debug.Log("ESC tuþuna basýldý!"); // ESC tuþunun algýlandýðýný kontrol edin
             if (isPaused)

@@ -39,7 +39,7 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void HandleWeaponSwitchInput()
     {
-        if (!currentWeaponScript.isReloading) 
+        if (!currentWeaponScript.isReloading && !currentWeaponScript.isInspected) 
         {
             // 1,2,3
             if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
@@ -67,8 +67,13 @@ public class WeaponSwitcher : MonoBehaviour
         // Disable current weapon
         if (currentWeaponScript != null)
         {
+            
             currentWeaponScript.isReloading = false;
+            currentWeaponScript.isInspected=false;
+            currentWeaponScript.weaponSway.ResetTransform();
+            
             currentWeaponScript.gameObject.SetActive(false);
+            currentWeaponScript.animator.enabled = true;
         }
 
         // Enable the selected weapon
