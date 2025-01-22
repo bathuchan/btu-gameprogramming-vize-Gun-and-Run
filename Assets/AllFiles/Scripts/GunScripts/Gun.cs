@@ -103,6 +103,7 @@ public class Gun : MonoBehaviour
             playerCameraController.ApplyRecoil(); // Smoothly apply and reset recoil
             if (Input.GetKeyDown(KeyCode.R)&&!isReloading&&currentAmmo!=maxAmmo) 
             {
+                weaponSway.ResetTransform();
                 startAnimator();
                 animator.SetTrigger("Reload");
 
@@ -357,8 +358,9 @@ public class Gun : MonoBehaviour
     public void InspectWeapon()
     {
         animator.enabled = true;
-        animator.SetTrigger("Inspect");
         isInspected = true;
+        animator.SetTrigger("Inspect");
+        
         
 
     }
@@ -372,6 +374,8 @@ public class Gun : MonoBehaviour
     }
     public void stopAnimator()  
     {
+        animator.Rebind();
+        animator.Update(0f);
         animator.enabled = false;
         weaponSway.enabled = true;
         // weaponSway.enabled = true;

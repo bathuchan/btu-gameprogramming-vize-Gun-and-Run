@@ -1,73 +1,112 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 
 public class AudioManagerAlex : MonoBehaviour
 {
+    
     [Header(" ---------- Audio Sources ---------- ")]
     [SerializeField] AudioSource backgroundSound;
-    [SerializeField] AudioSource clikSound;
+    [SerializeField] AudioSource clickSound;
 
     [Header("---------- Audio Clips ---------- ")]
     public AudioClip background;
-    public AudioClip clik;
+    public AudioClip click;
 
+    //private static AudioManagerAlex instance;
 
+    [SerializeField] Slider masterVolumeSlider, musicVolumeSlider, sfxVolumeSlider;
+    [SerializeField]AudioMixer audioMixer;
 
-
-
-
-
-
-    private static AudioManagerAlex instance;
-
-    [SerializeField] Slider volumeSlider;
-
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Start()
     {
-        if (!PlayerPrefs.HasKey("MusicVolume"))
+        
+
+        if (!PlayerPrefs.HasKey("MasterVolume") &&!PlayerPrefs.HasKey("MusicVolume")&&!PlayerPrefs.HasKey("SFXVolume"))
         {
+            PlayerPrefs.SetFloat("MainVolume", 1);
             PlayerPrefs.SetFloat("MusicVolume", 1);
+            PlayerPrefs.SetFloat("SFXVolume", 1);
+
+
         }
         else
         {
             Load();
         }
 
-        backgroundSound.clip = background;
-        backgroundSound.Play();
 
     }
 
-    public void ChangeVolume()
+
+    public void ChangeMasterVolume()
     {
-        AudioListener.volume = volumeSlider.value;
-        Save();
+        
+        Save("MasterVolume", masterVolumeSlider.value);
     }
 
+    public void ChangeMusicVolume()
+    {
+       
+        Save("MusicVolume", musicVolumeSlider.value);
+    }
+    public void ChangeSfxVolume()
+    {
+       
+        Save("SFXVolume", sfxVolumeSlider.value);
+        
+    }
+
+    public void PlaySfxPreview()
+    {
+        if (!clickSound.isPlaying)
+        {
+            clickSound.Play();
+        }
+    }
+
+    public void StopSfxPreview()
+    {
+        clickSound.Stop();
+    }
+
+    public void PlaySfxLoop()
+    {
+        if (!clickSound.isPlaying)
+        {
+            clickSound.loop = true;
+            clickSound.Play();
+        }
+    }
+
+    public void StopSfxLoop()
+    {
+        clickSound.loop = false;
+        clickSound.Stop();
+    }
     private void Load()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
+        musicVolumeSlider.value= PlayerPrefs.GetFloat("MusicVolume");
+        sfxVolumeSlider.value= PlayerPrefs.GetFloat("SFXVolume");
+
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolumeSlider.value) * 20f);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolumeSlider.value) * 20f);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolumeSlider.value) * 20f);
     }
 
-    private void Save()
+    private void Save(string pref,float val)
     {
-        PlayerPrefs.SetFloat("MusicVolume", volumeSlider.value);
+        PlayerPrefs.SetFloat(pref, val);
+        audioMixer.SetFloat(pref,Mathf.Log10(val)*20f);
     }
 
+    public void PlayClickSound() 
+    {
+        clickSound.Play();
+    }
 }

@@ -39,7 +39,7 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void HandleWeaponSwitchInput()
     {
-        if (!currentWeaponScript.isReloading && !currentWeaponScript.isInspected) 
+        if (!currentWeaponScript.isReloading /*&& !currentWeaponScript.isInspected*/) 
         {
             // 1,2,3
             if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
@@ -70,6 +70,7 @@ public class WeaponSwitcher : MonoBehaviour
             
             currentWeaponScript.isReloading = false;
             currentWeaponScript.isInspected=false;
+            
             currentWeaponScript.weaponSway.ResetTransform();
             
             currentWeaponScript.gameObject.SetActive(false);
@@ -80,7 +81,8 @@ public class WeaponSwitcher : MonoBehaviour
         currentWeaponIndex = weaponIndex;
         currentWeaponScript = weapons[currentWeaponIndex];
         if(currentWeaponScript.fireCoroutine != null) {currentWeaponScript.fireCoroutine = null; }
-        
+
+        currentWeaponScript.currentAmmoText.text = currentWeaponScript.currentAmmo+"";
         currentWeaponScript.gameObject.SetActive(true);
 
     }

@@ -112,7 +112,7 @@ public class PlayerCameraController : MonoBehaviour
         else if (Input.GetButtonUp("Fire1") && !pauseMenu.isPaused)
         {
             playerGun.isShooting = false;
-        }else if (Input.GetKeyDown(KeyCode.F)&&!playerGun.isReloading && !pauseMenu.isPaused)
+        }else if (Input.GetKeyDown(KeyCode.F)&&!playerGun.isReloading && !pauseMenu.isPaused && !playerGun.isInspected)
         {
             //StartCoroutine(playerGun.weaponSway.ResetPositonCoroutine());
             playerGun.InspectWeapon();

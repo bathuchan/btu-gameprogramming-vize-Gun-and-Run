@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    
     public GameObject pauseMenuUI; // Duraklama menüsü paneli
     public GameObject gunsUI;
     [HideInInspector]public bool isPaused = false; // Duraklama durumunu takip et
@@ -13,6 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             inMainMenu = true;
@@ -26,29 +28,35 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetAxis("Escape")==1&&!isPaused)
         {
-            Debug.Log("ESC tuþuna basýldý!"); // ESC tuþunun algýlandýðýný kontrol edin
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            Pause();
+
+            //if (isPaused)
+            //{
+            //    Resume();
+            //}
+            //else
+            //{
+                
+            //}
+            
         }
+
+        
     }
 
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false); // Menüyü kapat
-        gunsUI.SetActive(false);
+        Debug.Log("Game resumed");
         Time.timeScale = 1f; // Oyun zamanýný devam ettir
         Cursor.lockState = CursorLockMode.Locked; // Fareyi kilitle
         Cursor.visible = false; // Fare imlecini gizle
         isPaused = false;
+        pauseMenuUI.SetActive(false); // Menüyü kapat
+        gunsUI.SetActive(false);
+        
     }
 
     public void Pause()
@@ -56,7 +64,7 @@ public class PauseMenu : MonoBehaviour
         pm.ResetFov();
         pauseMenuUI.SetActive(true); // Menüyü aç
         gunsUI.SetActive(true);
-        Time.timeScale = 0f; // Oyun zamanýný durdur
+        Time.timeScale = 0.0000001f; // Oyun zamanýný durdur
         Cursor.lockState = CursorLockMode.None; // Fareyi serbest býrak
         Cursor.visible = true; // Fare imlecini göster
         isPaused = true;
