@@ -22,6 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     private float recoilSpeed = 5f;             // Speed at which recoil effect is applied and reset
 
     private PauseMenu pauseMenu;
+    [SerializeField]private WeaponSwitcher weaponSwitcher;
     private void Start()
     {
         cam = Camera.main;
@@ -35,6 +36,7 @@ public class PlayerCameraController : MonoBehaviour
 
         originalCamRotation = cam.transform.localEulerAngles;
         pauseMenu=GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
+        weaponSwitcher=GameObject.FindGameObjectWithTag("GameManager").GetComponent<WeaponSwitcher>();
     }
 
     private void Update()
@@ -43,7 +45,7 @@ public class PlayerCameraController : MonoBehaviour
 
 
         // Continuously check if the weapon has changed
-        if (WeaponSwitcher.Instance.GetCurrentWeapon() != playerGun)
+        if (weaponSwitcher.GetCurrentWeapon() != playerGun)
         {
             UpdateWeaponData();
         }
@@ -140,7 +142,7 @@ public class PlayerCameraController : MonoBehaviour
     private void UpdateWeaponData()
     {
         // Get the current weapon
-        playerGun = WeaponSwitcher.Instance.GetCurrentWeapon();
+        playerGun = weaponSwitcher.GetCurrentWeapon();
 
         if (playerGun != null)
         {

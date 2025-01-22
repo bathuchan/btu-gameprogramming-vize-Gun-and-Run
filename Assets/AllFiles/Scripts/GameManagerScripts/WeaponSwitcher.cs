@@ -2,22 +2,27 @@
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    public static WeaponSwitcher Instance { get; private set; }
+    //public static WeaponSwitcher Instance { get; private set; }
 
     public Gun[] weapons;
     public int currentWeaponIndex = 0;
     private Gun currentWeaponScript;
     private PauseMenu pauseMenu;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void Start()
     {

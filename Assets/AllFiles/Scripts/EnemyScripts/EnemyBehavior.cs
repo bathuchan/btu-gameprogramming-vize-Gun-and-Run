@@ -141,9 +141,12 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    
 
-   
+
+    private void OnDestroy()
+    {
+        NextLevelChecker.Instance.IncrementKillCount();
+    }
 
 
 

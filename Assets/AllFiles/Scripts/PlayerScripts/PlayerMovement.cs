@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public float fovChangeSpeed = 2f;      // Speed for lerping the FOV
 
     private float originalFov;             // The original FOV value
-    private PauseMenu pauseMenu;
+    public PauseMenu pauseMenu;
 
 
     void Start()
@@ -47,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = Camera.main;  // Get the main camera
         originalFov = playerCamera.fieldOfView; // Save the original FOV
         AudioManager.Instance.OnPlayerLoaded(gameObject);
-        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
+        
+        
     }
 
     void Update()
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             lastJumpTime = Time.time;
         }
+
 
 
         // Koþma tuþu kontrolü (Left Shift)

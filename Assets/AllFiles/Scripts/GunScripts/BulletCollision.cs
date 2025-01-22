@@ -17,7 +17,8 @@ public class BulletCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             particleManager.PlaceBlood(contact.point, Quaternion.identity);
-
+            
+            Destroy(collision.gameObject);
             //EnemyBehavior enemy = collision.gameObject.GetComponent<EnemyBehavior>();
           
         }
@@ -52,7 +53,7 @@ public class BulletCollision : MonoBehaviour
 
             if (Physics.Raycast(transform.position, direction.normalized, out hit, direction.magnitude + 0.01f))
             {
-                Debug.Log("Surface normal calculated.");
+                //Debug.Log("Surface normal calculated.");
                 Vector3 normal = hit.normal;
 
                 // Place the bullet hole using surface normal
