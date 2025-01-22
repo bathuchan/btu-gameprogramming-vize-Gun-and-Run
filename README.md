@@ -71,4 +71,19 @@
     - Dash PlayerMovement.cs:111
 ---
 
+## Sources of assets used in the project
+- The sources of all assets used in this project were created by the development team.
+  
+---
+
+##  Görev Dağılımı
+
+| **Batuhan Şengül - 20360859008** | **Aleks Dulda - 21360859025** |
+|-------------------|--------------------|
+| Animasyonlar (30x) | Ana Menü (30x) |
+| Asenkronizasyon (10x) | Duraklama Menüsü (20x) |
+| Ses ve Müzik (20x) | Ses ve Müzik (10x) |
+
+---
+
 
