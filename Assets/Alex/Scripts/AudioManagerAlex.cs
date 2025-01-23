@@ -90,10 +90,8 @@ public class AudioManagerAlex : MonoBehaviour
     }
     private void Load()
     {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
-        musicVolumeSlider.value= PlayerPrefs.GetFloat("MusicVolume");
-        sfxVolumeSlider.value= PlayerPrefs.GetFloat("SFXVolume");
-
+        
+        SetSliders();
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolumeSlider.value) * 20f);
         audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolumeSlider.value) * 20f);
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolumeSlider.value) * 20f);
@@ -108,5 +106,11 @@ public class AudioManagerAlex : MonoBehaviour
     public void PlayClickSound() 
     {
         clickSound.Play();
+    }
+    public void SetSliders() 
+    {
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
     }
 }
