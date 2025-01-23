@@ -46,6 +46,8 @@
 | Run              | `Left Shift(Hold)`       |
 | Dash             | `Left Ctrl/Right Mouse Button`|
 | Shoot            | `Left Mouse Button(Hold)`|
+| Reload            | `R`|
+| Inspect            | `F`|
 
 ---
 ## Action List(For grading our project)
